@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ek chhota sa surprise 💌</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at top,#ffd9e7,#f7efff 50%,#e7e7ff);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#38243c;overflow:hidden}
+.card{width:min(430px,100%);background:#ffffffc9;backdrop-filter:blur(12px);border:1px solid #ffffff;box-shadow:0 18px 60px #9a77a533;border-radius:28px;padding:32px 24px;text-align:center;position:relative;z-index:2}
+.heart{font-size:48px;animation:pulse 1.5s infinite}.tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#a26388;margin-top:10px}h1{font-size:26px;line-height:1.25;margin:14px 0}p{line-height:1.6;color:#68556c}.btn{border:0;border-radius:999px;padding:13px 20px;background:#ad5f91;color:white;font-weight:700;font-size:15px;cursor:pointer;margin:8px 4px;box-shadow:0 7px 20px #ad5f9140;transition:.2s}.btn:hover{transform:translateY(-2px)}.secondary{background:#f0dce9;color:#754568;box-shadow:none}.hidden{display:none}.answer{font-size:18px;font-weight:650;margin:20px 0}.float{position:absolute;opacity:.5;animation:drift 7s ease-in-out infinite;font-size:24px}@keyframes pulse{50%{transform:scale(1.12)}}@keyframes drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(10deg)}}
+</style>
+</head>
+<body>
+<div class="float" style="top:10%;left:9%">💗</div><div class="float" style="top:18%;right:12%;animation-delay:1s">✨</div><div class="float" style="bottom:12%;left:15%;animation-delay:2s">🌷</div><div class="float" style="bottom:20%;right:8%;animation-delay:1.5s">💌</div>
+<main class="card">
+<div class="heart">💌</div><div class="tag">Ek chhota sa surprise</div>
+<section id="start"><h1>Oye Kunnu!<br>2 minute idhar dhyaan do 😌</h1><p>Ek bahut hi serious survey hai.<br>Jhoot bola toh pakde jaoge. 😂</p><button class="btn" onclick="begin()">Chalo, shuru karo 👀</button></section>
+<section id="quiz" class="hidden"><h1 id="question"></h1><div id="choices"></div></section>
+<section id="end" class="hidden"><div class="heart">🥹</div><h1>Survey toh bahaana tha...</h1><p>Bas tumse thodi baat karne ka mann tha.<br>Ab website band karke mujhe message kar do. 🤭</p><button class="btn" onclick="copyMsg()">Message ka bahaana le lo 💬</button><p id="copied" class="hidden">“Achha survey tha na? Ab batao, kya kar rahe ho? 😂”<br><small>(Text copy ho gaya—ab bhej dena!)</small></p></section>
+</main>
+<script>
+const qs=[
+{q:'Sach sach batana…',opts:['Bhagya thodi cute hai 🙈','Bahut zyada cute hai 😌'],next:['Hmm, safe answer diya hai 😂','Achha ji, aaj mood sahi hai tumhara! 💗']},
+{q:'Agar abhi 10 minute mil jaayein…',opts:['Thodi baat karein? 💬','Mujhe tang karo 😂'],next:['Baat karna toh banta hai!','Permission granted 😌😂']},
+{q:'Last sawaal: ab kya karoge?',opts:['Message karunga 🤭','Pehle smile karunga, phir message 😂'],next:['Bas, yahi answer chahiye tha 💌','Smile toh dikh nahi rahi… message se proof do 😂']}
+];let i=0;
+function begin(){document.getElementById('start').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');render()}
+function render(){let item=qs[i];document.getElementById('question').textContent=item.q;let c=document.getElementById('choices');c.innerHTML='';item.opts.forEach((o,j)=>{let b=document.createElement('button');b.className='btn'+(j?' secondary':'');b.textContent=o;b.onclick=()=>answer(j);c.appendChild(b)})}
+function answer(j){let msg=qs[i].next[j];let c=document.getElementById('choices');c.innerHTML='<p class="answer">'+msg+'</p>';let b=document.createElement('button');b.className='btn';b.textContent=i===qs.length-1?'Final result dekho 💌':'Agla sawaal 😏';b.onclick=()=>{i++;if(i>=qs.length){document.getElementById('quiz').classList.add('hidden');document.getElementById('end').classList.remove('hidden')}else render()};c.appendChild(b)}
+function copyMsg(){let t='Achha survey tha na? Ab batao, kya kar rahe ho? 😂';navigator.clipboard?.writeText(t);document.getElementById('copied').classList.remove('hidden')}
+</script>
+</body></html>
